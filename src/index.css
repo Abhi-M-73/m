@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --btnColor: #d6a100;
+  --btnHoverColor: #ffdc18;
+}
+
+.mainBgColor {
+  @apply bg-gradient-to-br from-emerald-950 via-black to-emerald-950;
+  /* @apply bg-gradient-to-br from-blue-950 via-black to-blue-950; */
+}
+
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1a1;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+.common-border3 {
+  position: relative;
+  z-index: 0;
+}
+
+.common-border3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg,
+      #293436,
+      #c0f6fe,
+      #3f4d4f);
+  /* gradient border */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+.successBtn {
+  @apply bg-gradient-to-t from-[#0cff38] via-[#095c1b] to-[#000000];
+}
+
+
+.errorBtn {
+  @apply bg-gradient-to-t from-[#ec0202] via-[#5b0e0e] to-[#000000];
+}
+
+.warningBtn {
+  @apply bg-gradient-to-t from-[#ffcc00] via-[#665500] to-[#000000];
+}
