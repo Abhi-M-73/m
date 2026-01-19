@@ -32,7 +32,7 @@ const Login = ({ onNavigate }) => {
     onSuccess: (data) => {
       toast.success(data?.message || "Login successful!");
       dispatch(setRole(data?.data?.role));
-      dispatch(setToken(data?.data?.token));
+      dispatch(setToken(data?.token));
       dispatch(setUser(data?.data));
       queryClient.invalidateQueries(['fetchProfile']);
       navigate(AuthenicatedRoutes.USER_DASHBOARD);

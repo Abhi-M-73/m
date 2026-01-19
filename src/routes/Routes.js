@@ -17,11 +17,7 @@ export const PublicRouteList = {
 
 export const AuthenicatedRoutes = {
     USER_DASHBOARD: "/dashboard",
-    USER_DIRECT_TEAM: "/direct-team",
-    USER_LEVEL_TEAM: "/level-team",
-    USER_REFERRAL_INCOME: "/referral-income",
-    USER_ROI_INCOME: "/roi-income",
-    USER_LEVEL_INCOME: "/level-income",
+    USER_ADDRESS: "/address",
     USER_DEPOSIT: "/deposit",
     USER_MAKE_INVESTMENT: "/make-investment",
     USER_INVESTMENT_HISTORY: "/investment-history",
@@ -32,6 +28,7 @@ export const AuthenicatedRoutes = {
 
     ADMIN_DASHBOARD: "/admin/dashboard",
     ADMIN_TEAM: "/admin/team",
-    ADMIN_TOPUP: "/admin/topup",
-    ADMIN_TOPUP_HISTORY: "/admin/topup-history",
+    CREATE_CATEGORY: "/admin/create-category",
+    CREATE_PRODUCT: "/admin/create-product",
+    PRODUCT_LIST: "/admin/product-list",
 }

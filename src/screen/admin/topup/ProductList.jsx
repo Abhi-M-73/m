@@ -3,7 +3,7 @@ import ReusableDataTable from '../../../components/ui/ReusableDataTable';
 import { dateFormatter, formatCurrency, legButton, maskEmail } from '../../../utils/additionalFn';
 import { getTopupHistory } from '../../../api/admin.api';
 
-const AdminTopupHistory = () => {
+const ProductList = () => {
 
     const { data } = useQuery({
         queryKey: ['topupHistory'],
@@ -31,4 +31,4 @@ const AdminTopupHistory = () => {
     );
 };
 
-export default AdminTopupHistory;
+export default ProductList;

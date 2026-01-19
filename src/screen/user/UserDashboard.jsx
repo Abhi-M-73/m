@@ -1,236 +1,112 @@
-import React, { use, useEffect } from 'react';
-import { TrendingUp, DollarSign, CreditCard, Wallet, PiggyBank, ArrowUpRight, ArrowDownRight, Calendar, Award, Target, Activity, User, Copy } from 'lucide-react';
+import React from 'react';
+import { TrendingUp, DollarSign, ShoppingCart, Users} from 'lucide-react';
 import useFetchProfile from '../../hooks/usefetchProfile';
-import { backendConfig} from '../../utils/mainContent';
-import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
-  const data = useFetchProfile();
+  const { user, isLoading, isError } = useFetchProfile();
 
-  useEffect(() => {
-    useFetchProfile();
-  }, [data]);
-  
-  const incomeData = [
-    {
-      id: 2,
-      title: "Total Wallet Balance",
-      value: `$${data?.directReferralAmount?.toFixed(2)}`,
-      icon: <Wallet className="w-6 h-6" />,
-      color: "green",
-      period: "This Month"
-    },
-    {
-      id: 1,
-      title: "Total Referrals Income",
-      value: `$${data?.directReferralAmount?.toFixed(2)}`,
-      icon: <DollarSign className="w-6 h-6" />,
-      color: "blue",
-      period: "This Month"
-    },
-    {
-      id: 3,
-      title: "Total ROI Income",
-      value: `$${data?.totalEarnings?.toFixed(2)}`,
-      icon: <PiggyBank className="w-6 h-6" />,
-      color: "purple",
-      period: "This Month"
-    },
-    {
-      id: 4,
-      title: "Total Level Income",
-      value: `$${data?.levelIncome?.toFixed(2)}`,
-      icon: <TrendingUp className="w-6 h-6" />,
-      color: "orange",
-      period: "Portfolio Value"
-    },
-    {
-      id: 5,
-      title: "Total Investment",
-      value: `$${data?.totalInvestment?.toFixed(2)}`,
-      icon: <ArrowUpRight className="w-6 h-6" />,
-      color: "green",
-      period: "This Month"
-    },
-    {
-      id: 6,
-      title: "Total Withdrawal",
-      value: `$${data?.totalPayouts?.toFixed(2)}`,
-      icon: <CreditCard className="w-6 h-6" />,
-      color: "red",
-      period: "This Month"
-    },
-    {
-      id: 1,
-      title: "Total Users",
-      value: "125",
-      icon: <User className="w-6 h-6" />,
-      color: "orange",
-      period: "This Month"
-    },
-    {
-      id: 1,
-      title: "Total Direct Users",
-      value: `${data?.referredUsers?.length}`,
-      icon: <User className="w-6 h-6" />,
-      color: "yellow",
-      period: "This Month"
-    },
+  const stats = [
+    { title: 'Total Users', value: '12,458', icon: Users, color: 'from-blue-500 to-cyan-400' },
+    { title: 'Total Revenue', value: '$45,231', icon: DollarSign, color: 'from-emerald-500 to-teal-400' },
+    { title: 'Total Orders', value: '1,893', icon: ShoppingCart, color: 'from-purple-500 to-pink-500' },
+    { title: 'Growth Rate', value: '32%', icon: TrendingUp, color: 'from-orange-500 to-rose-400' },
+
+    // New Ecommerce Cards
+    { title: 'Pending Orders', value: '128', icon: ShoppingCart, color: 'from-yellow-500 to-orange-400' },
+    { title: 'Completed Orders', value: '1,542', icon: ShoppingCart, color: 'from-green-500 to-emerald-400' },
+    { title: 'New Customers', value: '342', icon: Users, color: 'from-indigo-500 to-sky-400' },
+    { title: 'Monthly Sales', value: '$9,845', icon: DollarSign, color: 'from-fuchsia-500 to-pink-400' },
   ];
-
-
-
-  const getColorClasses = (color) => {
-    const colors = {
-      blue: {
-        bg: "from-blue-500 to-blue-600",
-        light: "bg-blue-50",
-        text: "text-blue-600",
-        border: "border-blue-200"
-      },
-      green: {
-        bg: "from-green-500 to-green-600",
-        light: "bg-green-50",
-        text: "text-green-600",
-        border: "border-green-200"
-      },
-      purple: {
-        bg: "from-purple-500 to-purple-600",
-        light: "bg-purple-50",
-        text: "text-purple-600",
-        border: "border-purple-200"
-      },
-      orange: {
-        bg: "from-orange-500 to-orange-600",
-        light: "bg-orange-50",
-        text: "text-orange-600",
-        border: "border-orange-200"
-      },
-      yellow: {
-        bg: "from-yellow-500 to-yellow-600",
-        light: "bg-yellow-50",
-        text: "text-yellow-600",
-        border: "border-yellow-200"
-      },
-      red: {
-        bg: "from-red-500 to-red-600",
-        light: "bg-red-50",
-        text: "text-red-600",
-        border: "border-red-200"
-      },
-      pink: {
-        bg: "from-pink-500 to-pink-600",
-        light: "bg-pink-50",
-        text: "text-pink-600",
-        border: "border-pink-200"
-      },
-      indigo: {
-        bg: "from-indigo-500 to-indigo-600",
-        light: "bg-indigo-50",
-        text: "text-indigo-600",
-        border: "border-indigo-200"
-      },
-      gray: {
-        bg: "from-gray-500 to-gray-600",
-        light: "bg-gray-50",
-        text: "text-gray-600",
-        border: "border-gray-200"
-      }
-    };
-    return colors[color];
-  };
-
-
-  const copyReferralLink = () => {
-    const link = `${window.location.origin}/register?ref=${data?.referralCode}`;
-    navigator.clipboard.writeText(link);
-    toast.success("Referral link copied to clipboard.");
-  }
 
 
   return (
     <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {incomeData.map((item) => {
-            const colors = getColorClasses(item.color);
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+
             return (
               <div
-                key={item.id + item.title}
-                className="group relative bg-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2"
+                key={index}
+                className="group relative rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
-                <div className={`absolute z--2 inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                <div className="relative p-6">
-                  <div className={`${colors.light} ${colors.text} w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-white/20 group-hover:text-white transition-all duration-300`}>
-                    {item.icon}
-                  </div>
-                  <h3 className="text-gray-200 text-sm font-medium mb-2 group-hover:text-white/90 transition-colors duration-300">
-                    {item.title}
-                  </h3>
+                {/* Soft Gradient Accent */}
+                <div
+                  className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${stat.color} opacity-15 rounded-full`}
+                />
 
+                {/* Card Content */}
+                <div className="relative p-5 flex flex-col gap-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-baseline gap-2">
-                      <p className="text-3xl font-bold text-gray-100 group-hover:text-white transition-colors duration-300">
-                        {item.value}
-                      </p>
+                    <div
+                      className={`p-3 rounded-xl bg-gradient-to-br ${stat.color} text-white shadow-lg`}
+                    >
+                      <Icon className="h-6 w-6" />
                     </div>
-                    <span className="text-xs text-gray-200 group-hover:text-white/70 transition-colors duration-300">
-                      {item.period}
+
+                    <span className="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-600">
+                      +12%
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="text-sm font-medium text-gray-500">
+                      {stat.title}
+                    </p>
+                    <p className="mt-1 text-2xl font-bold text-gray-900">
+                      {stat.value}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-gray-400">
+                    <span>Updated today</span>
+                    <span className="text-blue-500 group-hover:underline cursor-pointer">
+                      View details →
                     </span>
                   </div>
                 </div>
-                <div className={`absolute z-10 -right-4 -bottom-4 w-24 h-24 bg-gradient-to-br ${colors.bg} rounded-full opacity-30 group-hover:opacity-50  transition-opacity duration-300`}></div>
+
+                {/* Bottom Hover Accent */}
+                <div
+                  className={`absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r ${stat.color} scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`}
+                />
               </div>
             );
           })}
         </div>
 
-        {/* Profile Data Section */}
-        <div className="mt-10 bg-white/10 p-6 rounded-xl shadow-lg backdrop-blur-lg">
-          <h2 className="text-xl font-semibold text-gray-200 mb-4">Profile Details</h2>
 
+        <div className="mt-10 bg-white p-6 rounded-xl shadow-lg border border-gray-200 backdrop-blur-lg">
+          <h2 className="text-xl font-semibold mb-4">Profile Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-200">Username</p>
-              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.username}</h3>
+            <div className="border border-gray-300 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-600">Username</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{user?.name}</h3>
             </div>
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-200">Email</p>
-              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.email}</h3>
-            </div>
-
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-200">Phone</p>
-              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.phone}</h3>
+            <div className="border border-gray-300 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-600">Email</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{user?.email}</h3>
             </div>
 
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-200">Role</p>
-              <h3 className="text-lg font-medium text-[var(--btnColor)] capitalize">{data?.role}</h3>
+            <div className="border border-gray-300 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-600">Phone</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)]">{user?.phone}</h3>
             </div>
 
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-200">Referred Users Count</p>
-              <h3 className="text-lg font-medium text-[var(--btnColor)]">{data?.referredUsers?.length}</h3>
+            <div className="border border-gray-300 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-600">Role</p>
+              <h3 className="text-lg font-medium text-[var(--btnColor)] capitalize">{user?.role}</h3>
             </div>
 
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100">
-              <p className="text-sm text-gray-300">Created At</p>
+            <div className="border border-gray-300 flex items-center justify-between p-4 rounded-lg text-gray-100">
+              <p className="text-sm text-gray-600">Created At</p>
               <h3 className="text-lg font-medium text-[var(--btnColor)]">
-                {new Date(data?.createdAt).toLocaleDateString()}
+                {new Date(user?.createdAt).toLocaleDateString()}
               </h3>
-            </div>
-
-            <div className="border border-gray-600 flex items-center justify-between p-4 rounded-lg text-gray-100 md:col-span-2">
-              <p className="text-sm text-gray-300">Referral Link</p>
-              <div className='flex items-center gap-4'>
-                <h3 className="text-lg font-medium text-[var(--btnColor)]">{backendConfig.origin}/{data?.referralCode}</h3>
-                <Copy onClick={copyReferralLink} />
-              </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

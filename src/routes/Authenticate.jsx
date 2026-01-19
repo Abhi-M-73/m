@@ -3,21 +3,17 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import UserDashboard from '../screen/user/UserDashboard';
 import DashboardMain from '../layout/DashboardMain';
 import AdminDashboard from '../screen/admin/AdminDashboard';
-import { AuthenicatedRoutes, AuthRoutes } from '../routes/Routes';
-import UserDirectTeam from '../screen/user/team/UserDirectTeam';
-import UserLevelTeam from '../screen/user/team/UserLevelTeam';
-import UserReferralIncome from '../screen/user/income/UserReferralIncome';
-import UserLevelIncome from '../screen/user/income/UserLevelIncome';
-import UserRoiIncome from '../screen/user/income/UserRoiIncome';
+import { AuthenicatedRoutes } from '../routes/Routes';
 import UserDeposit from '../screen/user/payment/UserDeposit';
 import UserMakeInvestment from '../screen/user/investment/UserMakeInvestment';
 import UserInvestmentHistory from '../screen/user/investment/UserInvestmentHistory';
 import UserProfile from '../screen/user/profile/UserProfile';
 import UserRaiseTicket from '../screen/user/support/UserRaiseTicket';
 import UserRaiseTicketHistory from '../screen/user/support/UserRaiseTicketHistory';
-import AdminAllTeam from '../screen/admin/team/AdminAllTeam';
-import AdminTopup from '../screen/admin/topup/AdminTopup';
-import AdminTopupHistory from '../screen/admin/topup/AdminTopupHistory';
+import UserAddress from '../screen/user/address/UserAddress';
+import CreateCategory from '../screen/admin/topup/CreateCategory';
+import ProductList from '../screen/admin/topup/ProductList';
+import CreateProduct from '../screen/admin/topup/CreateProduct';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -33,35 +29,13 @@ const Authenticate = () => {
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.USER_DIRECT_TEAM}
+                        path={AuthenicatedRoutes.USER_ADDRESS}
                         element={
-                            <DashboardMain inner={<UserDirectTeam />} name="User Direct Team" />
+                            <DashboardMain inner={<UserAddress />} name="User Address" />
                         }
                     />
-                    <Route
-                        path={AuthenicatedRoutes.USER_LEVEL_TEAM}
-                        element={
-                            <DashboardMain inner={<UserLevelTeam />} name="User Level Team" />
-                        }
-                    />
-                    <Route
-                        path={AuthenicatedRoutes.USER_REFERRAL_INCOME}
-                        element={
-                            <DashboardMain inner={<UserReferralIncome />} name="User Referral Income" />
-                        }
-                    />
-                    <Route
-                        path={AuthenicatedRoutes.USER_LEVEL_INCOME}
-                        element={
-                            <DashboardMain inner={<UserLevelIncome />} name="User Level Income" />
-                        }
-                    />
-                    <Route
-                        path={AuthenicatedRoutes.USER_ROI_INCOME}
-                        element={
-                            <DashboardMain inner={<UserRoiIncome />} name="User ROI Income" />
-                        }
-                    />
+                    
+                   
                     <Route
                         path={AuthenicatedRoutes.USER_DEPOSIT}
                         element={
@@ -126,21 +100,21 @@ const Authenticate = () => {
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TEAM}
+                        path={AuthenicatedRoutes.CREATE_CATEGORY}
                         element={
-                            <DashboardMain inner={<AdminAllTeam />} name="All Team" />
+                            <DashboardMain inner={<CreateCategory />} name="Create Category" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TOPUP}
+                        path={AuthenicatedRoutes.CREATE_PRODUCT}
                         element={
-                            <DashboardMain inner={<AdminTopup />} name="Admin Topup" />
+                            <DashboardMain inner={<CreateProduct />} name="Create Product" />
                         }
                     />
                     <Route
-                        path={AuthenicatedRoutes.ADMIN_TOPUP_HISTORY}
+                        path={AuthenicatedRoutes.PRODUCT_LIST}
                         element={
-                            <DashboardMain inner={<AdminTopupHistory />} name="Admin Topup History" />
+                            <DashboardMain inner={<ProductList />} name="Product List" />
                         }
                     />
                 </>

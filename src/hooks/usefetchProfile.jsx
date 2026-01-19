@@ -1,17 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUserProfile } from "../api/user.api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/authSlice";
-import toast from "react-hot-toast";
-
+import { useEffect } from "react";
 const useFetchProfile = () => {
     const dispatch = useDispatch();
-    const { data } = useQuery({
+
+    const { data, isLoading, isError, refetch } = useQuery({
         queryKey: ["fetchProfile"],
         queryFn: getUserProfile,
-    })
-    dispatch(setUser(data?.data));
-    return data?.data;
+    });
+
+    useEffect(() => {
+        if (data?.user) {
+            dispatch(setUser(data.user));
+        }
+    }, [data, dispatch]);
+
+    return {
+        user: data?.user,
+        isLoading,
+        isError,
+        refetch,  
+    };
 };
 
 export default useFetchProfile;
+

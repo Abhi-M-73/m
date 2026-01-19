@@ -18,7 +18,7 @@ const UserRaiseTicket = () => {
   const [formData, setFormData] = useState({
     subject: "",
     message: "",
-    attachments: [], // will store File[]
+    attachments: [],
   });
 
   const handleInputChange = (e) => {
@@ -26,8 +26,6 @@ const UserRaiseTicket = () => {
 
     if (type === "file") {
       const fileArray = Array.from(files || []);
-      console.log("FILES FROM INPUT 👉", fileArray);
-
       setFormData((prev) => ({
         ...prev,
         attachments: fileArray,
@@ -61,7 +59,6 @@ const UserRaiseTicket = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("FORM DATA STATE 👉", formData);
 
     if (!formData.subject || !formData.message) {
       return toast.error("Please fill in all required fields.");
@@ -73,12 +70,10 @@ const UserRaiseTicket = () => {
 
     if (formData.attachments && formData.attachments.length > 0) {
       formData.attachments.forEach((file) => {
-        // "file" yahi naam backend me jo expected ho, woh rakho
         form.append("files", file);
       });
     }
 
-    // Debug: check exactly kya jaa raha hai
     for (const [key, value] of form.entries()) {
       console.log("FORM ENTRY 👉", key, value);
     }
@@ -87,9 +82,8 @@ const UserRaiseTicket = () => {
   };
 
   return (
-    <div className="w-full border border-slate-600 rounded-xl shadow-xl backdrop-blur-md p-6 md:p-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] gap-8">
-      {/* Left Side - Info / Illustration */}
-      <div className="hidden md:flex flex-col items-center justify-center gap-6 border-b lg:border-b-0 lg:border-r border-slate-800 pb-6 lg:pb-0 lg:pr-6">
+    <div className="w-full bg-white border border-gray-200 rounded-xl shadow-lg backdrop-blur-md p-6 md:p-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1.4fr] gap-8">
+      <div className="hidden md:flex flex-col items-center justify-center gap-6 border-b lg:border-b-0 lg:border-r border-gray-400 pb-6 lg:pb-0 lg:pr-6">
         <div className="relative">
           <div className="h-40 w-40 rounded-full bg-gradient-to-br from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl">
             <Bot className="h-20 w-20 text-white" />
@@ -100,10 +94,10 @@ const UserRaiseTicket = () => {
         </div>
 
         <div className="text-center space-y-2 px-2">
-          <h2 className="text-xl md:text-2xl font-semibold text-white">
+          <h2 className="text-xl md:text-2xl font-semibold">
             Smart Support Assistant
           </h2>
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-slate-400">
             Raise a ticket for any issue or query. Our support team will get
             back to you as soon as possible.
           </p>
@@ -111,14 +105,14 @@ const UserRaiseTicket = () => {
 
         <div className="w-full mt-2 grid grid-cols-1 gap-3 text-sm">
           <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-3">
-            <p className="text-slate-300 font-medium">Quick Response</p>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-slate-100 font-medium">Quick Response</p>
+            <p className="text-xs text-slate-300 mt-1">
               Raise a ticket and track your queries easily from your dashboard.
             </p>
           </div>
           <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-3">
-            <p className="text-slate-300 font-medium">Attach Screenshots</p>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-slate-100 font-medium">Attach Screenshots</p>
+            <p className="text-xs text-slate-300 mt-1">
               Add images to explain your issue better for faster resolutions.
             </p>
           </div>
@@ -128,10 +122,10 @@ const UserRaiseTicket = () => {
       {/* Right Side - Form */}
       <div className="space-y-6">
         <div>
-          <h1 className="text-lg md:text-2xl font-semibold text-white">
+          <h1 className="text-lg md:text-2xl font-semibold">
             Raise a Support Ticket
           </h1>
-          <p className="text-sm text-slate-300 mt-1">
+          <p className="text-sm text-slate-400 mt-1">
             Share the details of your issue or question. Please be specific so
             we can help you quickly.
           </p>

@@ -31,7 +31,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-8 bg-gradient-to-b from-yellow-400 to-yellow-500 rounded-full" />
-              <h2 className="text-2xl font-bold">ShopKINGS</h2>
+              <h2 className="text-2xl font-bold">{MainContent.appName}</h2>
             </div>
 
             <h3 className="text-4xl font-bold mb-5 leading-tight">
@@ -116,7 +116,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-slate-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-300 text-sm">
-            &copy; {currentYear} ShopKINGS. All rights reserved.
+            &copy; {currentYear} {MainContent.appName}. All rights reserved.
           </p>
 
           <div className="flex gap-6 text-sm">

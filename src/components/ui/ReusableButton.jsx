@@ -77,7 +77,7 @@ const ReusableButton = ({
           Icon && <Icon className="w-5 h-5 text-black" />
         )}
 
-        <span className="text-xl">
+        <span className="text-lg">
           {loading ? "Processing..." : label}
         </span>
       </button>

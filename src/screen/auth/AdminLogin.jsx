@@ -53,7 +53,7 @@ const AdminLogin = () => {
 
     return (
         <div className='space-y-4'>
-            <h1 className='text-white text-4xl text-center font-semibold mb-5'>Admin Login</h1>
+            <h1 className='text-[var(--btnColor)] text-4xl text-center font-semibold mb-5'>Admin Login</h1>
             <ReusableForm
                 type={"email"}
                 label={"Email"}

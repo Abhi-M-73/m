@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --btnColor: #d6a100;
-  --btnHoverColor: #ffdc18;
+  --btnColor: #e2ad0c;
+  --btnHoverColor: #f7d61b;
 }
 
 .mainBgColor {
-  @apply bg-gradient-to-br from-emerald-950 via-black to-emerald-950;
+  @apply bg-white text-black;
+  /* @apply bg-gradient-to-br from-emerald-950 via-black to-emerald-950; */
   /* @apply bg-gradient-to-br from-blue-950 via-black to-blue-950; */
 }
 

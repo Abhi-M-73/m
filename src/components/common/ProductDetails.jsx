@@ -16,7 +16,7 @@ import {
   Upload,
 } from "lucide-react";
 
-const ProductDetailPage = () => {
+const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("black");
@@ -620,4 +620,4 @@ const ProductDetailPage = () => {
   );
 };
 
-export default ProductDetailPage;
+export default ProductDetails;

@@ -1,4 +1,4 @@
-import { BadgeDollarSign, BanknoteArrowUp, CircleUser, Coins, LayoutDashboard, MessageCircleQuestionMark, User } from "lucide-react";
+import { BadgeDollarSign, BanknoteArrowUp, CircleUser, Coins, icons, LayoutDashboard, LocateIcon, MapPin, MessageCircleQuestionMark, Settings, User } from "lucide-react";
 import { AuthenicatedRoutes } from "../routes/Routes";
 
 const SidebarContent = {
@@ -9,67 +9,35 @@ const SidebarContent = {
             name: "Dashboard",
             link: AuthenicatedRoutes.USER_DASHBOARD,
         },
-        {
-            id: "Team",
-            icon: <User />,
-            name: "Team",
-            options: [
-                {
-                    id: "Direct Team",
-                    name: "Direct Team",
-                    link: AuthenicatedRoutes.USER_DIRECT_TEAM,
-                },
-                {
-                    id: "Level Team",
-                    name: "Level Team",
-                    link: AuthenicatedRoutes.USER_LEVEL_TEAM,
-                },
-            ],
-        },
-        {
-            id: "Income",
-            icon: <Coins />,
-            name: "Income",
-            options: [
-                {
-                    id: "Referral Income",
-                    name: "Referral Income",
-                    link: AuthenicatedRoutes.USER_REFERRAL_INCOME,
-                },
-                {
-                    id: "Level Income",
-                    name: "Level Income",
-                    link: AuthenicatedRoutes.USER_LEVEL_INCOME,
-                },
-                {
-                    id: "ROI Income",
-                    name: "ROI Income",
-                    link: AuthenicatedRoutes.USER_ROI_INCOME,
-                },
-            ],
-        },
-        {
-            id: "Investment",
-            icon: <BanknoteArrowUp />,
-            name: "Investment",
-            options: [
-                {
-                    id: "Make Investment",
-                    name: "Make Investment",
-                    link: AuthenicatedRoutes.USER_MAKE_INVESTMENT,
-                },
-                {
-                    id: "Investment History",
-                    name: "Investment History",
-                    link: AuthenicatedRoutes.USER_INVESTMENT_HISTORY,
-                },
-                {
-                    id: "Deposit",
-                    name: "Deposit",
-                    link: AuthenicatedRoutes.USER_DEPOSIT,
-                },
+       
+        // {
+        //     id: "Investment",
+        //     icon: <BanknoteArrowUp />,
+        //     name: "Investment",
+        //     options: [
+        //         {
+        //             id: "Make Investment",
+        //             name: "Make Investment",
+        //             link: AuthenicatedRoutes.USER_MAKE_INVESTMENT,
+        //         },
+        //         {
+        //             id: "Investment History",
+        //             name: "Investment History",
+        //             link: AuthenicatedRoutes.USER_INVESTMENT_HISTORY,
+        //         },
+        //         {
+        //             id: "Deposit",
+        //             name: "Deposit",
+        //             link: AuthenicatedRoutes.USER_DEPOSIT,
+        //         },
 
-            ],
+        //     ],
+        // },
+        {
+            id: "Address",
+            icon: <MapPin />,
+            name: "Address",
+            link: AuthenicatedRoutes.USER_ADDRESS,
         },
         {
             id: "Support",
@@ -117,20 +85,25 @@ const SidebarContent = {
             ],
         },
         {
-            id: "Topup",
-            icon: <BadgeDollarSign />,
-            name: "Topup",
+            id: "Manage Product",
+            icon: <Settings />,
+            name: "Manage Product",
             options: [
                 {
-                    id: "Admin Topup",
-                    name: "Admin Topup",
-                    link: AuthenicatedRoutes.ADMIN_TOPUP,
+                    id: "Create Category",
+                    name: "Create Category",
+                    link: AuthenicatedRoutes.CREATE_CATEGORY,
                 },
                 {
-                    id: "Admin Topup History",
-                    name: "Admin Topup History",
-                    link: AuthenicatedRoutes.ADMIN_TOPUP_HISTORY,
-                }
+                    id: "Create Product",
+                    name: "Create Product",
+                    link: AuthenicatedRoutes.CREATE_PRODUCT,
+                },
+                {
+                    id: "Product List",
+                    name: "Product List",
+                    link: AuthenicatedRoutes.PRODUCT_LIST,
+                },
             ]
         },
     ],

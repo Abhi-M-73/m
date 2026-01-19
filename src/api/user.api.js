@@ -12,6 +12,15 @@ export const userLogin = async (payload) => {
     return response.data;
 }
 
+export const updateProfile = async (payload) => {
+    const response = await Axios.put(`${API}/update-profile`, payload, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return response.data;
+}
+
 export const buyPlanPackage = async (payload) => {
     const response = await Axios.post(`${API}/buy-package`, payload);
     return response.data;
@@ -32,15 +41,7 @@ export const userDeposit = async () => {
     return response.data;
 }
 
-export const getDirectTeam = async () => {
-    const response = await Axios.get(`${API}/direct-user`);
-    return response.data;
-}
 
-export const getLevelTeam = async () => {
-    const response = await Axios.get(`${API}/get-level-team`);
-    return response.data;
-}
 
 export const getDirectreferralIncome = async () => {
     const response = await Axios.get(`${API}/get-directreferralIncome-history`);
