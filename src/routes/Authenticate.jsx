@@ -11,9 +11,11 @@ import UserProfile from '../screen/user/profile/UserProfile';
 import UserRaiseTicket from '../screen/user/support/UserRaiseTicket';
 import UserRaiseTicketHistory from '../screen/user/support/UserRaiseTicketHistory';
 import UserAddress from '../screen/user/address/UserAddress';
-import CreateCategory from '../screen/admin/topup/CreateCategory';
-import ProductList from '../screen/admin/topup/ProductList';
-import CreateProduct from '../screen/admin/topup/CreateProduct';
+import CreateCategory from '../screen/admin/product-mgmt/CreateCategory';
+import ProductList from '../screen/admin/product-mgmt/ProductList';
+import CreateProduct from '../screen/admin/product-mgmt/CreateProduct';
+import CreateBanner from '../screen/admin/banner/CreateBanner';
+import AdminAllTeam from '../screen/admin/team/AdminAllTeam';
 
 const Authenticate = () => {
     const { role } = useSelector((state) => state.auth);
@@ -34,8 +36,8 @@ const Authenticate = () => {
                             <DashboardMain inner={<UserAddress />} name="User Address" />
                         }
                     />
-                    
-                   
+
+
                     <Route
                         path={AuthenicatedRoutes.USER_DEPOSIT}
                         element={
@@ -70,8 +72,6 @@ const Authenticate = () => {
                     />
 
 
-
-
                     <Route
                         path={AuthenicatedRoutes.USER_PROFILE}
                         element={
@@ -79,7 +79,7 @@ const Authenticate = () => {
                         }
                     />
 
-                    <Route path="*" element={<Navigate to={AuthenicatedRoutes.USER_DASHBOARD} />} />
+                    {/* <Route path="*" element={<Navigate to={AuthenicatedRoutes.USER_DASHBOARD} />} /> */}
                 </>
             )}
 
@@ -100,6 +100,12 @@ const Authenticate = () => {
                         }
                     />
                     <Route
+                        path={AuthenicatedRoutes.ADMIN_TEAM}
+                        element={
+                            <DashboardMain inner={<AdminAllTeam />} name="All Users" />
+                        }
+                    />
+                    <Route
                         path={AuthenicatedRoutes.CREATE_CATEGORY}
                         element={
                             <DashboardMain inner={<CreateCategory />} name="Create Category" />
@@ -117,10 +123,16 @@ const Authenticate = () => {
                             <DashboardMain inner={<ProductList />} name="Product List" />
                         }
                     />
+                    <Route
+                        path={AuthenicatedRoutes.CREATE_BANNER}
+                        element={
+                            <DashboardMain inner={<CreateBanner />} name="Create Banner" />
+                        }
+                    />
                 </>
             )}
 
-            <Route path="*" element={<Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} />} />
+            {/* <Route path="*" element={<Navigate to={AuthenicatedRoutes.ADMIN_DASHBOARD} />} /> */}
         </Routes>
     );
 };

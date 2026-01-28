@@ -34,7 +34,7 @@ export const maskPhoneNumber = (phoneNumber) => {
     return `${startDigits}${maskedSection}${endDigits}`;
 };
 
-export const formatCurrency = (amount, currency = "USD") => {
+export const formatCurrency = (amount, currency = "INR") => {
     return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency,

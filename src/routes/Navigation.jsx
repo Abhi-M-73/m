@@ -9,7 +9,8 @@ const Navigation = () => {
     return (
         <>
             <ScrollToTop />
-            {isAuthenticated && token ? <Authenticate /> : <Auth />}
+            <Auth />
+            {isAuthenticated && token && <Authenticate />}
         </>
     );
 };

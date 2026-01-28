@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown, CheckCircle2, Zap } from "lucide-react";
+import { ChevronDown, Zap } from "lucide-react";
 
 const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
   return (
@@ -17,7 +17,6 @@ const FAQItem = ({ question, answer, index, isOpen, onClick }) => {
       `}</style>
 
       <button onClick={onClick} className="w-full text-left relative">
-        {/* Glow */}
         <div className="absolute inset-0 bg-yellow-400/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition" />
 
         <div

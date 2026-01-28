@@ -7,6 +7,11 @@ export const getAllCategories = async () => {
     return response.data;
 };
 
+export const getAllCategoriesForAdmin = async () => {
+    const response = await Axios.get(`${API}/get-categories-for-admin`);
+    return response.data;
+};
+
 export const createCategory = async (payload) => {
     const response = await Axios.post(`${API}/add-category`, payload, {
         headers: {

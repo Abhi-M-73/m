@@ -1,5 +1,6 @@
-import { BadgeDollarSign, BanknoteArrowUp, CircleUser, Coins, icons, LayoutDashboard, LocateIcon, MapPin, MessageCircleQuestionMark, Settings, User } from "lucide-react";
+import { BadgeDollarSign, BanknoteArrowUp, CircleUser, ClipboardCheck, Coins, icons, LayoutDashboard, LocateIcon, MapPin, MessageCircleQuestionMark, Settings, User } from "lucide-react";
 import { AuthenicatedRoutes } from "../routes/Routes";
+
 
 const SidebarContent = {
     User: [
@@ -73,16 +74,10 @@ const SidebarContent = {
             link: AuthenicatedRoutes.ADMIN_DASHBOARD,
         },
         {
-            id: "Team",
+            id: "Users",
             icon: <User />,
-            name: "Team",
-            options: [
-                {
-                    id: "All Team",
-                    name: "All Team",
-                    link: AuthenicatedRoutes.ADMIN_TEAM,
-                },
-            ],
+            name: "Users",
+            link: AuthenicatedRoutes.ADMIN_TEAM,
         },
         {
             id: "Manage Product",
@@ -105,6 +100,12 @@ const SidebarContent = {
                     link: AuthenicatedRoutes.PRODUCT_LIST,
                 },
             ]
+        },
+        {
+            id: "Create Banner",
+            icon: <ClipboardCheck />,
+            name: "Create Banner",
+            link: AuthenicatedRoutes.CREATE_BANNER,
         },
     ],
 };

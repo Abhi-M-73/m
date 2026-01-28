@@ -28,15 +28,12 @@ const AdminAllTeam = () => {
 
     const columns = [
         { label: '#', key: 'sr', render: (value, row, rowIndex) => rowIndex + 1 },
-        { label: 'Username', key: "username" },
-        { label: 'Email', key: 'email', render: (value) => maskEmail(value) },
+        { label: 'Name', key: "name" },
+        { label: 'Email', key: 'email', render: (value) => value },
         { label: 'Total Balance', key: 'mainWallet', render: (value) => formatCurrency(Number(value?.$numberDecimal)) },
-        { label: 'Total Earnings', key: 'totalEarnings', render: (value) => formatCurrency(value) },
-        { label: 'Total Investment', key: 'totalInvestment', render: (value) => formatCurrency(value) },
-        { label: 'Referral Code', key: 'referralCode' },
-        { label: 'Position', key: 'position', render: (value) => legButton(value) },
+        { label: 'Total Orders', key: 'orders', render: (value) => value ? value?.length : 0 },
         {
-            label: 'Block Status', key: 'loginBlocked', render: (value) => {
+            label: 'Block Status', key: 'isLoginBlocked', render: (value) => {
                 return (
                     <span
                         className={`px-3 py-1 rounded-lg text-xs font-medium 
@@ -51,19 +48,30 @@ const AdminAllTeam = () => {
         { label: 'Joined At', key: 'createdAt', render: (value) => dateFormatter(value) },
         {
             label: 'Action',
-            key: 'loginBlocked',
+            key: 'isLoginBlocked',
             render: (value, row) => (
-                <button
-                    onClick={() =>
-                        handleToggleLoginBlock({ userId: row._id, loginBlocked: value })
-                    }
-                    disabled={isPending}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium 
+                <div className='space-x-4'>
+                    <button
+                        onClick={() =>
+                            handleToggleLoginBlock({ userId: row._id, loginBlocked: value })
+                        }
+                        disabled={isPending}
+                        className={`px-3 py-1 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition`}
+                    >
+                        View
+                    </button>
+                    <button
+                        onClick={() =>
+                            handleToggleLoginBlock({ userId: row._id, loginBlocked: value })
+                        }
+                        disabled={isPending}
+                        className={`px-3 py-1 rounded-lg text-xs font-medium 
                         ${value ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-600 hover:bg-emerald-700'}
                         text-white transition`}
-                >
-                    {isPending ? 'Updating...' : value ? 'Unblock' : 'Block'}
-                </button>
+                    >
+                        {isPending ? 'Updating...' : value ? 'Unblock' : 'Block'}
+                    </button>
+                </div>
             ),
         },
     ];

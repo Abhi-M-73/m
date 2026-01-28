@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import ReusableButton from '../../components/ui/ReusableButton';
-import { Link2, Lock, Mail, Phone, User } from 'lucide-react';
+import { Loader2, Lock, Mail, Phone, User } from 'lucide-react';
 import ReusableForm from '../../components/ui/ReusableForm';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { userRegister } from '../../api/user.api';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -57,7 +57,6 @@ const Register = ({ onNavigate }) => {
     mutate(payload);
   };
 
-  if (isPending) return <Loader />;
 
   return (
     <div className='space-y-4'>
@@ -120,7 +119,7 @@ const Register = ({ onNavigate }) => {
 
       <div className="w-full mt-4">
         <ReusableButton
-          label="Register"
+          label={isPending ? <Loader2 className="animate-spin" /> : "Register"}
           onClick={handleRegister}
           loading={isPending}
           disabled={isPending}

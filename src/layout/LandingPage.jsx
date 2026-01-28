@@ -6,6 +6,7 @@ import FAQSection from '../screen/landing/FAQSection'
 import Footer from '../screen/landing/Footer'
 import FeaturedProducts from '../screen/landing/FeaturedProducts'
 import OurPremiumCollection from '../screen/landing/OurPremiumCollection'
+import GallerySection from '../screen/landing/GallerySection'
 
 
 const LandingPage = () => {
@@ -13,8 +14,9 @@ const LandingPage = () => {
     <div className='bg-gray-50'>
       <HeroSection />
       <FeaturedProducts />
-      <StatsSection />
+      <GallerySection />
       <OurPremiumCollection />
+      <StatsSection />
       <WhyChooseUsSection />
       <FAQSection />
     </div>

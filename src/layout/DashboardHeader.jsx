@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Bell, LogOut, UserCircle2 } from 'lucide-react';
+import { Bell, LayoutDashboard, LogOut, UserCircle2 } from 'lucide-react';
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
@@ -7,7 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
 
 const DashboardHeader = ({ headerName = "Dashboard" }) => {
-  const {name , email, profileImage} = useSelector((state) => state?.auth?.user);
+  const auth = useSelector((state) => state?.auth);
+  const { name, email, profileImage } = auth?.user;
   const [open, setOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,6 +87,15 @@ const DashboardHeader = ({ headerName = "Dashboard" }) => {
               <span className="absolute top-1 right-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full"></span>
             </button>
 
+            {
+              auth.token && auth.role === "user" && (
+                <Link to="/" className=" p-1.5 sm:p-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-600 transition-colors shrink-0">
+                  <LayoutDashboard className="w-5 h-5 sm:w-6 sm:h-6" />
+                </Link>
+              )
+            }
+
+
             <button
               onClick={() => setOpen(!open)}
               className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-lg hover:bg-gray-600 transition-colors shrink-0"
@@ -99,6 +109,7 @@ const DashboardHeader = ({ headerName = "Dashboard" }) => {
               </div>
             </button>
 
+            
             {open && (
               <div
                 ref={dropdownRef}

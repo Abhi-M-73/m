@@ -8,6 +8,8 @@ import {
   ShieldCheck,
   Star,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getAllBanners } from "../../api/banner.api";
 
 const slides = [
   {
@@ -30,24 +32,33 @@ const slides = [
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
 
+  const { data } = useQuery({
+    queryKey: ["fetchBanners"],
+    queryFn: getAllBanners,
+  });
+
   useEffect(() => {
+    if (!data?.banners || data.banners.length <= 1) return;
+
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setCurrent((prev) => (prev + 1) % data.banners.length);
     }, 4500);
+
     return () => clearInterval(timer);
-  }, []);
+  }, [data]);
+
+
 
   return (
-    <section id="home" className="relative h-[95vh] w-full overflow-hidden bg-white ">
-
-      {slides.map((slide, i) => (
+    <section id="home" className="relative md:h-[90vh] h-[70vh] w-full overflow-hidden bg-white ">
+      {data?.banners?.map((slide, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-opacity duration-700 ${i === current ? "opacity-100" : "opacity-0"
             }`}
         >
           <img
-            src={slide.img}
+            src={slide?.image}
             className="w-full h-full object-cover"
             alt="slide"
           />
@@ -69,18 +80,18 @@ export default function HeroSlider() {
 
 
       <div className="relative z-20 h-full flex items-center px-6 lg:px-20 text-white">
-        <div className="max-w-2xl">
-          <span className="inline-block px-4 py-2 bg-yellow-500 text-black font-semibold rounded-full mb-6">
-            New Collection 2026
+        <div className="max-w-3xl">
+          <span className="inline-block px-4 py-2 bg-yellow-500 text-black font-semibold rounded-full mb-4">
+            {data?.banners[current]?.tagline}
           </span>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            {slides[current].title.split(" ")[0]}{" "}
+            {data?.banners[current]?.title?.split(" ")[0]}{" "}
             <span className="text-yellow-400">
-              {slides[current].title.split(" ").slice(1).join(" ")}
+              {data?.banners[current]?.title?.split(" ").slice(1).join(" ")}
             </span>
           </h1>
-          <p className="mt-6 text-lg text-slate-200">
-            {slides[current].desc}
+          <p className="mt-4 text-lg text-slate-200">
+            {data?.banners[current]?.description}
           </p>
           <div className="mt-6 grid grid-cols-3 gap-4 text-sm text-slate-200">
             <div className="flex items-center gap-2">
@@ -110,23 +121,23 @@ export default function HeroSlider() {
       {/* Nav Buttons */}
       <button
         onClick={() =>
-          setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
+          setCurrent((prev) => (prev - 1 + data?.banners?.length) % data?.banners?.length)
         }
-        className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full z-30"
+        className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full z-30 hidden md:block"
       >
         <ChevronLeft />
       </button>
 
       <button
-        onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full z-30"
+        onClick={() => setCurrent((prev) => (prev + 1) % data?.banners?.length)}
+        className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full z-30 hidden md:block"
       >
         <ChevronRight />
       </button>
 
       {/* Dots */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-        {slides.map((_, i) => (
+        {data?.banners?.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

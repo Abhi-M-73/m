@@ -11,6 +11,10 @@
   /* @apply bg-gradient-to-br from-blue-950 via-black to-blue-950; */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 
 ::-webkit-scrollbar {
   width: 4px;

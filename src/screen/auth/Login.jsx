@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReusableForm from '../../components/ui/ReusableForm';
-import { Lock, Mail } from 'lucide-react';
+import { Loader2, Lock, Mail } from 'lucide-react';
 import ReusableButton from '../../components/ui/ReusableButton';
 import OtpInputWithButton from '../../components/ui/OtpInputWithButton';
 import { Link, useNavigate } from 'react-router-dom';
@@ -35,7 +35,8 @@ const Login = ({ onNavigate }) => {
       dispatch(setToken(data?.token));
       dispatch(setUser(data?.data));
       queryClient.invalidateQueries(['fetchProfile']);
-      navigate(AuthenicatedRoutes.USER_DASHBOARD);
+      // navigate(AuthenicatedRoutes.USER_DASHBOARD);
+      navigate("/");
     },
     onError: (error) => {
       toast.error(
@@ -43,8 +44,6 @@ const Login = ({ onNavigate }) => {
       );
     }
   });
-
-  if (isPending) return <Loader />;
 
   const handleLogin = () => {
     if (!formData.email || !formData.password) {
@@ -87,7 +86,7 @@ const Login = ({ onNavigate }) => {
 
       <div className="w-full mt-4">
         <ReusableButton
-          label="Login"
+          label={isPending ? <Loader2 className="animate-spin" /> : "Login"}
           onClick={handleLogin}
           loading={isPending}
           disabled={isPending}

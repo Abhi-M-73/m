@@ -12,6 +12,8 @@ import AboutUsPage from '../screen/landing/AboutUsPage';
 import ContactUsPage from '../screen/landing/ContactUsPage';
 import Cart from '../components/common/Cart';
 import ProductDetails from '../components/common/ProductDetails';
+import ProtectedLayout from '../layout/ProtectedLayout';
+import Wishlist from '../screen/user/product/Wishlist';
 
 const Auth = () => {
 
@@ -22,7 +24,7 @@ const Auth = () => {
             <Route path={AuthRoutes.FORGET_PASSWORD} element={<AuthMain inner={<ForgetPassword />} name={"Forget Password"} />} />
             <Route path={AuthRoutes.ADMIN_LOGIN} element={<AuthMain inner={<AdminLogin />} name={"Admin Login"} />} />
             <Route path={AuthRoutes.ADMIN_LOGIN} element={<AuthMain inner={<AdminLogin />} name={"Admin Login"} />} />
-            
+
             <Route
                 path={PublicRouteList.HOME}
                 element={
@@ -71,9 +73,18 @@ const Auth = () => {
             <Route
                 path={PublicRouteList.CART}
                 element={
-                    <PublicLayout>
+                    <ProtectedLayout>
                         <Cart />
-                    </PublicLayout>
+                    </ProtectedLayout>
+                }
+            />
+
+            <Route
+                path={PublicRouteList.WISHLIST}
+                element={
+                    <ProtectedLayout>
+                        <Wishlist />
+                    </ProtectedLayout>
                 }
             />
             {/* <Route path="*" element={<Navigate to={AuthRoutes.USER_LOGIN} replace />} /> */}

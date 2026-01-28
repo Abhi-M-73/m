@@ -13,6 +13,7 @@ export const PublicRouteList = {
     CONTACT: "/contact",
     PRODUCT_DETAILS: "/product-details",
     CART: "/cart",
+    WISHLIST: "/wishlist",
 };
 
 export const AuthenicatedRoutes = {
@@ -27,8 +28,10 @@ export const AuthenicatedRoutes = {
 
 
     ADMIN_DASHBOARD: "/admin/dashboard",
-    ADMIN_TEAM: "/admin/team",
+    ADMIN_TEAM: "/admin/all-users",
     CREATE_CATEGORY: "/admin/create-category",
     CREATE_PRODUCT: "/admin/create-product",
     PRODUCT_LIST: "/admin/product-list",
+    CREATE_BANNER: "/admin/create-banner",
+    BANNER_LIST: "/admin/banner-list",
 }

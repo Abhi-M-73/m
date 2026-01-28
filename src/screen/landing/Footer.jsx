@@ -17,17 +17,11 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-black text-white overflow-hidden">
-
-      {/* Soft Glow */}
       <div className="absolute top-0 left-10 w-32 h-32 bg-yellow-400/20 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl" />
 
       <div className="relative z-10 md:w-[90%] w-full mx-auto px-4 sm:px-6 lg:px-8 py-16">
-
-        {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12">
-
-          {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-8 bg-gradient-to-b from-yellow-400 to-yellow-500 rounded-full" />
@@ -129,8 +123,8 @@ const Footer = () => {
 
       {/* Floating Chat */}
       <div className="fixed bottom-6 right-6 z-50">
-        <button className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all">
-          <MessageCircle className="w-6 h-6" />
+        <button className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all">
+          <MessageCircle className="w-5 h-5" />
         </button>
       </div>
     </footer>

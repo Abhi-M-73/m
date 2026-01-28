@@ -16,7 +16,7 @@ const OtpInputWithButton = ({
     className = "",
 }) => {
     const commonInputClass =
-        "bg-transparent flex-1 outline-none text-white placeholder-white/70 text-md disabled:cursor-not-allowed " +
+        "bg-transparent flex-1 outline-none text-slate-800 placeholder-slate-400 text-sm disabled:cursor-not-allowed " +
         className;
 
     return (
@@ -24,26 +24,26 @@ const OtpInputWithButton = ({
             {label && (
                 <label
                     htmlFor={name}
-                    className="block text-md font-medium mb-2 text-gray-300"
+                    className="block text-md font-medium mb-2 text-slate-700"
                 >
                     {label} {required && <span className="text-red-500">*</span>}
                 </label>
             )}
 
             {/* Outer container */}
-            <div className="flex sm:flex-row sm:items-center gap-3 rounded-lg px-2 py-2 border border-gray-700 group">
+            <div className="flex sm:flex-row sm:items-center gap-3 rounded-lg px-2 py-1 border border-gray-300 group">
                 {/* Icon + Input block */}
                 <div className="flex items-center gap-3 flex-1">
                     {Icon && (
-                        <div className="bg-[#252525] p-2 rounded">
-                            <Icon className="w-5 h-5 text-gray-300 group-focus-within:text-[var(--btnColor)]" />
+                        <div className="bg-slate-50 p-2 rounded">
+                            <Icon className="w-4 h-4 text-gray-500 group-focus-within:text-[var(--btnColor)]" />
                         </div>
                     )}
 
                     <input
                         id={name}
                         name={name}
-                        type="text"
+                        type="number"
                         inputMode="numeric"
                         placeholder={placeholder}
                         value={value}

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "@fluejs/noscroll";
-import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { Menu, X, ShoppingCart, User, LayoutDashboard, LogOut, Heart } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
+import Loader from "../../components/ui/Loader";
 
 const NAV_LINKS = [
   { name: "Home", target: "/" },
@@ -11,11 +14,14 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const { token, role } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cartCount] = useState(2); 
+  const [loading, setLoading] = useState(false);
+  const [cartCount] = useState(2);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -36,6 +42,20 @@ export default function Header() {
     setOpen(false);
     enablePageScroll();
   };
+
+
+  const handleLogout = () => {
+    closeMobileMenu();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(logout());
+      navigate('/');
+    }, 1000);
+  };
+
+
+  if (loading) return <Loader />;
 
   return (
     <header
@@ -68,7 +88,6 @@ export default function Header() {
               <NavLink
                 key={link.name}
                 to={link.target}
-                
                 className="relative text-md font-semibold cursor-pointer transition-colors
             text-slate-200 hover:text-yellow-300
             after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0
@@ -80,29 +99,59 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right Icons (Desktop only) */}
           <div className="hidden lg:flex items-center gap-4">
+            {token && role === "user" && (
+              <button
+                onClick={() => navigate("/cart")}
+                className="relative p-2 rounded-full border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/30 transition"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            )}
+
+            {token && role === "user" && (
+              <button
+                onClick={() => navigate("/wishlist")}
+                className="relative p-2 rounded-full border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/30 transition"
+              >
+                <Heart className="w-5 h-5" />
+              </button>
+            )}
+
             <button
-              onClick={() => navigate("/cart")}
-              className="relative p-2 rounded-full border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/10 transition"
+              onClick={() => {
+                if (token && role === "user") {
+                  navigate("/dashboard");
+                } else {
+                  navigate("/login");
+                }
+              }}
+              className="rounded-full p-2 border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/30 transition"
             >
-              <ShoppingCart className="w-5 h-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                  {cartCount}
-                </span>
+              {token && role === "user" ? (
+                <LayoutDashboard className="w-5 h-5" />
+              ) : (
+                <User className="w-5 h-5" />
               )}
             </button>
 
-            <button
-              onClick={() => navigate("/login")}
-              className="rounded-full p-2 border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/10 transition"
-            >
-              <User className="w-5 h-5" />
-            </button>
+            {
+              token && (
+                <button
+                  onClick={handleLogout}
+                  className="rounded-full p-2 border-2 border-yellow-400/30 text-yellow-300 hover:bg-yellow-500/30 transition"
+                >
+                  <LogOut className="w-5 h-5" />
+                </button>
+              )
+            }
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={toggle}
             className="lg:hidden inline-flex items-center justify-center p-2 rounded-lg
@@ -113,8 +162,6 @@ export default function Header() {
         </div>
       </div>
 
-
-      {/* Backdrop */}
       <div
         onClick={() => open && toggle()}
         className={[
@@ -125,7 +172,6 @@ export default function Header() {
         ].join(" ")}
       />
 
-      {/* Mobile Drawer */}
       <div
         className={[
           "lg:hidden fixed top-[2px] left-0 right-0 z-50 mx-3 rounded-2xl",
@@ -141,8 +187,10 @@ export default function Header() {
             {NAV_LINKS.map((link, i) => (
               <li key={link.name} style={{ animation: `slideUp 0.35s ease ${0.03 * i}s both` }}>
                 <NavLink
+                  key={link.name}
                   to={link.target}
-                  className="block w-full rounded-xl px-4 py-3 text-xl font-semibold
+                  onClick={closeMobileMenu}
+                  className="block w-full rounded-xl px-4 py-3 text-md font-medium
                     text-slate-200 hover:text-yellow-300 hover:bg-yellow-500/10"
                 >
                   {link.name}
@@ -150,38 +198,84 @@ export default function Header() {
               </li>
             ))}
 
-            {/* Cart */}
-            <li>
-              <button
-                onClick={() => {
-                  closeMobileMenu();
-                  navigate("/cart");
-                }}
-                className="w-full rounded-xl px-4 py-4 text-xl font-bold
+            {
+              token && role === "user" && (
+                <li>
+                  <button
+                    onClick={() => {
+                      closeMobileMenu();
+                      navigate("/wishlist");
+                    }}
+                    className="w-full rounded-xl px-4 py-3 text-lg font-semibold
                   text-yellow-300 border border-yellow-400/30
-                  hover:bg-yellow-500/10 transition"
-              >
-                🛒 View Cart ({cartCount})
-              </button>
-            </li>
+                  hover:bg-yellow-500/10 transition flex items-center justify-center gap-2"
+                  >
+                    <Heart className="w-5 h-5" /> View Wishlist ({cartCount})
+                  </button>
+                </li>
+              )
+            }
+
+            {/* Cart */}
+            {
+              token && role === "user" && (
+                <li>
+                  <button
+                    onClick={() => {
+                      closeMobileMenu();
+                      navigate("/cart");
+                    }}
+                    className="w-full rounded-xl px-4 py-3 text-lg font-semibold
+                  text-yellow-300 border border-yellow-400/30
+                  hover:bg-yellow-500/10 transition flex items-center justify-center gap-2"
+                  >
+                    <ShoppingCart className="w-5 h-5" /> View Cart ({cartCount})
+                  </button>
+                </li>
+              )
+            }
 
             {/* Login */}
             <li>
               <button
                 onClick={() => {
-                  closeMobileMenu();
-                  navigate("/login");
+                  if (token && role === "user") {
+                    closeMobileMenu();
+                    navigate("/dashboard");
+                  } else {
+                    closeMobileMenu();
+                    navigate("/login");
+                  }
                 }}
-                className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-4
-                  text-black font-bold text-xl
+                className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-3
+                  text-black font-semibold text-lg
                   bg-gradient-to-r from-yellow-400 to-yellow-500
                   shadow-[0_8px_24px_rgba(251,191,36,0.35)]
                   hover:scale-[1.02] active:scale-95 transition"
               >
-                <User className="w-5 h-5" />
-                Login
+                {token && role === "user" ? <LayoutDashboard className="w-5 h-5" /> : <User className="w-5 h-5" />}
+                {token && role === "user" ? "Dashboard" : "Login"}
               </button>
             </li>
+
+            {/* logout  */}
+            {
+              token && (
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-3
+                  text-white font-semibold text-lg
+                  bg-gradient-to-r from-gray-600 to-gray-900
+                  shadow-[0_8px_24px_rgba(251,191,36,0.35)]
+                  hover:scale-[1.02] active:scale-95 transition"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    Logout
+                  </button>
+                </li>
+              )
+            }
           </ul>
         </nav>
       </div>

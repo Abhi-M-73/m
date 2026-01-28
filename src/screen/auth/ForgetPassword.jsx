@@ -11,9 +11,14 @@ const ForgetPassword = ({ onNavigate }) => {
         newPassword: '',
     });
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    }
+
     return (
         <div className='space-y-4'>
-            <h1 className='text-white text-4xl text-center font-semibold mb-5'>Forget Password</h1>
+            <h1 className='text-[var(--btnColor)] text-4xl text-center font-semibold mb-5'>Forget Password</h1>
             <ReusableForm
                 label="Email"
                 name="email"
@@ -24,9 +29,10 @@ const ForgetPassword = ({ onNavigate }) => {
             />
             <OtpInputWithButton
                 label="Email OTP"
+                type="number"
                 name="otp"
-                value={""}
-                onChange={(e) => { }}
+                value={formData.otp}
+                onChange={handleInputChange}
                 placeholder="Enter OTP"
                 required
                 icon={ShieldCheck}
